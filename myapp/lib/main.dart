@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:myapp/productCard.dart';
 import 'package:myapp/utils/profileClipper.dart';
+import 'package:myapp/model/model.dart';
+import 'brandSelector.dart';
 
 void main() => runApp(MyApp());
 
@@ -43,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: EdgeInsets.only(
                 top: ScreenUtil().setHeight(170),
-                left: ScreenUtil().setWidth(80),
+                left: ScreenUtil().setWidth(60),
                 right: ScreenUtil().setWidth(80)
               ),
               child: Row(
@@ -64,7 +67,43 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-            )
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                top: ScreenUtil().setHeight(60),
+                left: ScreenUtil().setWidth(110),
+                bottom: ScreenUtil().setHeight(105),
+              ),
+              child: Text(
+                "Explorar",
+                style: Theme.of(context).textTheme.title,
+              ),
+            ),
+            BrandSelector(brands: ["Nike", "Adidas", "Puma", "Vans"]
+            ),
+            SizedBox(
+              height: ScreenUtil().setHeight(50),
+            ),
+            SizedBox(
+              height: ScreenUtil().setHeight(1050),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                physics: BouncingScrollPhysics(),
+                itemCount: products.length - 1,
+                itemBuilder: (context, index){
+                  Shoes shoes = products[index];
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      left: ScreenUtil().setWidth(30),
+                    ),
+                    child: ProductCard(
+                      shoes: shoes,
+                      cardNum: index,
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
